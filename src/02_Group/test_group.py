@@ -1,8 +1,8 @@
+import pytest
+
 from collections.abc import Iterable
 from datetime import date, datetime, timezone
 from itertools import permutations
-
-import pytest
 from group import Group, Person, Student
 
 
@@ -33,7 +33,7 @@ class TestPerson:
         assert hasattr(polina, "name")
         assert hasattr(polina, "surname")
         assert hasattr(polina, "sex")
-        assert hasattr(polina, "bday")
+        assert hasattr(polina, "b_day")
 
     @staticmethod
     def test_error_init():
@@ -48,11 +48,11 @@ class TestPerson:
 
     def test_ages(self, polina: Person):
         assert hasattr(polina, "full_ages")
-        assert polina.full_ages() == datetime.now(tz=timezone.utc).year - polina.bday.year
+        assert polina.full_ages() == datetime.now(tz=timezone.utc).year - polina.b_day.year
 
         for i in range(10):
-            polina.bday = date(1990 + i, 4, 12)
-            assert polina.full_ages() == datetime.now(tz=timezone.utc).year - polina.bday.year
+            polina.b_day = date(1990 + i, 4, 12)
+            assert polina.full_ages() == datetime.now(tz=timezone.utc).year - polina.b_day.year
 
     @staticmethod
     def test_eq(polina: Person):
@@ -218,3 +218,4 @@ class TestGroup:
             assert g == Group([s3, s4, s2, s1])
             g.sort_by_age_and_skill(reverse=True)
             assert g == Group([s1, s2, s4, s3])
+            
